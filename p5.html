@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kyra Boyle</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Poppins|Oxygen" rel="stylesheet">
+    <link href="css/hover.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/obnoxious.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">  <link rel="stylesheet" type="text/css" href="https://csshake.surge.sh/csshake.min.css">
+    <link href="css/styles.css" rel="stylesheet">
+
+  </head>
+  <body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+  <!-- The navbar - The <a> elements are used to jump to a section in the scrollable area -->
+  <nav class="navbar navbar-expand-sm fixed-top navbar">
+    <a class="navbar-toggler" href="#kyra">Kyra</a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler">Menu</span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- header images -->
+  <body>
+    <div class="animatedHeader">
+      <img class="imgd animated intensifies" src="assets/img/duck.png">
+      <img class="imgt shake-crazy" src="assets/img/trex.png">
+      <img class="imgs animated shake-chunk" src="assets/img/sloth.png">
+      <img class="imgu animated fadeInRight" src="assets/img/ufo.png">
+      <img class="imgk hvr-wobble-top" src="assets/img/logok.png">
+    </div>
+  <div id="kyraMobile">
+    <img class="img-fluid" src="assets/img/logo4.jpg">
+  </div>
+
+  <div id="canvasContainer"></div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+<script src="js/sketch.js"></script>
+<!-- this is the footer it has icons in it with links and a map -->
+<footer class="text-center mt-5 pt-5 pb-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mb-6 mg-lg-0">
+        <h4 class="text-uppercase mb-4">Address</h4>
+        <p class="lead mb-0">Drakes Circus
+        <br>
+        Plymouth, PL4 8AA</p>
+      </div>
+      <div class="col-md-6 mb-6 mg-lg-0">
+        <h4 class="text-uppercase mb-4">Social Media</h4>
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item">
+            <a class="btn btn-outline-light btn-social text-center rounded" target="_blank" href="https://www.facebook.com/kyralnboyle">
+              <i class="fab fa-facebook"></i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="btn btn-outline-light btn-social text-center rounded" href="https://www.instagram.com/kyralnboyle/">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="btn btn-outline-light btn-social text-center rounded" href="https://twitter.com/Kyra_Boyle">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-12 mb-12 mg-lg-0">
+        <h4 class="text-uppercase mb-4">Google Map</h4>
+      <div id="map"></div>
+<script>
+function initMap() {
+      var uluru = {lat: 50.375868 , lng:  -4.139658};
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 9,
+        center: uluru
+      });
+      var marker = new google.maps.Marker({
+        position: uluru,
+        map: map
+      });
+    }
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJAXVUp8P1Au_kX19qQ3tE7UOzRO59OtE&callback=initMap"
+async defer></script>
+   </div>
+</div>
+</div>
+</footer>
+
+<div class=" small text-center pt-1 pb-1">
+  <small>Copyright &copy; <span id="autoDate"></span></small>
+</div>
