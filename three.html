@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>three.js</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light|Poppins|Oxygen" rel="stylesheet">
+  <link href="css/hover.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/obnoxious.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">  <link rel="stylesheet" type="text/css" href="https://csshake.surge.sh/csshake.min.css">
+  <link href="css/styles.css" rel="stylesheet">
+  <script src="build/three.min.js"></script>
+  <script src="build/OBJLoader.js"></script>
+  <script src="build/MTLLoader.js"></script>
+  <script src="js/WebGL.js"></script>
+  <script src="js/libs/stats.min.js"></script>
+  <script src="js/controls/OrbitControls.js"></script>
+  <script src="https://unpkg.com/unmute" data-add-button="false"></script>
+
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+  <!-- The navbar - The <a> elements are used to jump to a section in the scrollable area -->
+  <nav class="navbar navbar-expand-sm fixed-top navbar">
+    <a class="navbar-toggler" href="#kyra">Kyra</a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler">Menu</span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- header images -->
+  <body>
+    <div class="animatedHeader">
+      <img class="imgd animated intensifies" src="assets/img/duck.png">
+      <img class="imgt shake-crazy" src="assets/img/trex.png">
+      <img class="imgs animated shake-chunk" src="assets/img/sloth.png">
+      <img class="imgu animated fadeInRight" src="assets/img/ufo.png">
+      <img class="imgk hvr-wobble-top" src="assets/img/logok.png">
+    </div>
+    <div id="kyraMobile">
+      <img class="img-fluid" src="assets/img/logo4.jpg">
+    </div>
+
+    <div id="canvasContainer"></div>
+
+    <div id="container"></div>
+    <div id="footer">
+      <!-- text at the bottom of the screen to show the user what to do -->
+      Click <strong>H</strong> to activate hemisphere light, <strong>D</strong> to activate directional light, then to deactivate the light click the corresponding letter again.
+    </div>
+
+    <!-- PRE SET VARIABLES -->
+
+    <!-- Pre set variables to help with the colour of the sky and the ground, they also help with she shading  -->
+    <script type="x-shader/x-vertex" id="vertexShader">
+
+    varying vec3 vWorldPosition;
+
+    void main() {
+
+      vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+      vWorldPosition = worldPosition.xyz;
+
+      gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+    }
+
+    </script>
+
+    <script type="x-shader/x-fragment" id="fragmentShader">
+
+    uniform vec3 topColor;
+    uniform vec3 bottomColor;
+    uniform float offset;
+    uniform float exponent;
+
+    varying vec3 vWorldPosition;
+
+    void main() {
+
+      float h = normalize( vWorldPosition + offset ).y;
+      gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( max( h , 0.0), exponent ), 0.0 ) ), 1.0 );
+
+    }
+
+    </script>
+
+    <script>
+
+    if ( WEBGL.isWebGLAvailable() === false ) {
+
+      document.body.appendChild( WEBGL.getWebGLErrorMessage() );
+
+    }
+
+    //VARIABLES
+
+    var camera, scene, renderer, dirLight, dirLightHeper, hemiLight, hemiLightHelper, controls, UnmuteButton;
+    var mixers = [];
+    var stats;
+    var radius = 100, theta = 0;
+    var object;
+    var objects = [];
+
+    var clock = new THREE.Clock();
+    var objLoader;
+
+    init();
+    animate();
+
+    function init() {
+
+      // CAMERA/SCENE
+
+      var container = document.getElementById( 'container' );
+      container = document.createElement( 'div' );
+      document.body.appendChild( container );
+
+      camera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 1, 5000 );
+      camera.position.set( 0, 0, 250 );
+
+      scene = new THREE.Scene();
+      scene.background = new THREE.Color().setHSL( 0.6, 0, 1 );
+      scene.fog = new THREE.Fog( scene.background, 1, 5000 );
+
+      // LIGHTS
+
+      //Settings for the Hemispere light
+      hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.6 );
+      hemiLight.color.setHSL( 0.6, 1, 0.6 );
+      hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
+      hemiLight.position.set( 0, 50, 0 );
+      scene.add( hemiLight );
+
+      //Settings for the Directional light
+      dirLight = new THREE.DirectionalLight( 0xffffff, 1 );
+      dirLight.color.setHSL( 0.1, 1, 0.95 );
+      dirLight.position.set( - 1, 1.75, 1 );
+      dirLight.position.multiplyScalar( 30 );
+      scene.add( dirLight );
+
+      dirLight.castShadow = true;
+
+      dirLight.shadow.mapSize.width = 2048;
+      dirLight.shadow.mapSize.height = 2048;
+
+      var d = 50;
+
+      dirLight.shadow.camera.left = - d;
+      dirLight.shadow.camera.right = d;
+      dirLight.shadow.camera.top = d;
+      dirLight.shadow.camera.bottom = - d;
+
+      dirLight.shadow.camera.far = 3500;
+      dirLight.shadow.bias = - 0.0001;
+
+      // GROUND
+
+      //Sets the ground and its position
+      var groundGeo = new THREE.PlaneBufferGeometry( 10000, 10000 );
+      var groundMat = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0x050505 } );
+      groundMat.color.setHSL( 0.095, 1, 0.75 );
+
+      var ground = new THREE.Mesh( groundGeo, groundMat );
+      ground.rotation.x = - Math.PI / 2;
+      ground.position.y = - 33;
+      scene.add( ground );
+
+      ground.receiveShadow = true;
+
+      // SKYDOME
+
+      //sets the sky and allows for the light changing
+      var vertexShader = document.getElementById( 'vertexShader' ).textContent;
+      var fragmentShader = document.getElementById( 'fragmentShader' ).textContent;
+      var uniforms = {
+        topColor: { value: new THREE.Color( 0x0077ff ) },
+        bottomColor: { value: new THREE.Color( 0xffffff ) },
+        offset: { value: 33 },
+        exponent: { value: 0.6 }
+      };
+      uniforms.topColor.value.copy( hemiLight.color );
+
+      scene.fog.color.copy( uniforms.bottomColor.value );
+
+      var skyGeo = new THREE.SphereBufferGeometry( 4000, 32, 15 );
+      var skyMat = new THREE.ShaderMaterial( { vertexShader: vertexShader, fragmentShader: fragmentShader, uniforms: uniforms, side: THREE.BackSide } );
+
+      var sky = new THREE.Mesh( skyGeo, skyMat );
+      scene.add( sky );
+
+      //TREE
+
+      // Model/material
+      var mtlLoader = new THREE.MTLLoader();
+      mtlLoader.load("Tree/Treewqithleafs.mtl", function(materials){
+
+        materials.preload();
+
+        //Loading object
+        objLoader = new THREE.OBJLoader();
+        objLoader.setMaterials(materials);
+
+        objLoader.load("Tree/Treewqithleafs.obj", function(mesh){
+          mesh.traverse(function(node){
+            if( node instanceof THREE.Mesh ){
+              node.material.side = THREE.DoubleSide; // Makes mesh material render double sided (disables backface culling)
+              node.receiveShadow = true;
+            }
+          });
+          scene.add(mesh);
+          mesh.position.set(4, -20, 100);
+        });
+      });
+
+      //AUDIO
+
+      var audioListener = new THREE.AudioListener();
+      camera.add(audioListener);
+
+      var sound = new THREE.Audio(audioListener);
+      var audioLoader = new THREE.AudioLoader();
+      //this allows me to choose the audio file
+      audioLoader.load( 'sound/WindSound.mp3', function(buffer) {
+        sound.setBuffer(buffer);
+        //continues playing
+        sound.setLoop(true);
+        //volume
+        sound.setVolume(0.5);
+        sound.play();
+      });
+
+
+      // RENDERER
+
+      renderer = new THREE.WebGLRenderer( { antialias: true } );
+      renderer.setPixelRatio( window.devicePixelRatio );
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      container.appendChild( renderer.domElement );
+
+      renderer.gammaInput = true;
+      renderer.gammaOutput = true;
+
+      renderer.shadowMap.enabled = true;
+
+      // CONTROLS
+
+      //This allows the user to look around the scene
+      controls = new THREE.OrbitControls( camera, renderer.domElement );
+
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.25;
+
+      controls.screenSpacePanning = false;
+
+      controls.minDistance = 100;
+      controls.maxDistance = 500;
+
+      controls.maxPolarAngle = Math.PI / 2;
+
+      // STATS
+
+      stats = new Stats();
+      container.appendChild( stats.dom );
+
+      //
+
+      window.addEventListener( 'resize', onWindowResize, false );
+      document.addEventListener( 'keydown', onKeyDown, false );
+
+    }
+
+
+
+    function onWindowResize() {
+
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize( window.innerWidth, window.innerHeight );
+
+    }
+
+    //KEYBOARD SETTINGS
+
+    //Settings for the keys, to change the lights
+    function onKeyDown( event ) {
+
+      switch ( event.keyCode ) {
+
+        case 72: // h
+
+        hemiLight.visible = ! hemiLight.visible;
+        hemiLightHelper.visible = ! hemiLightHelper.visible;
+        break;
+
+        case 68: // d
+
+        dirLight.visible = ! dirLight.visible;
+        dirLightHeper.visible = ! dirLightHeper.visible;
+        break;
+
+      }
+
+    }
+
+    //
+
+    function animate() {
+
+      requestAnimationFrame( animate );
+
+      render();
+      stats.update();
+      controls.update();
+
+    }
+
+    function render() {
+
+      var delta = clock.getDelta();
+
+      for ( var i = 0; i < mixers.length; i ++ ) {
+        mixers[ i ].update( delta );
+        theta += 0.01;
+        camera.lookAt( scene.position );
+        camera.updateMatrixWorld();
+      }
+      renderer.render( scene, camera );
+    }
+    </script>
+  </body>
+
+
+
+  <!-- this is the footer it has icons in it with links and a map -->
+  <footer class="text-center mt-5 pt-5 pb-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mb-6 mg-lg-0">
+          <h4 class="text-uppercase mb-4">Address</h4>
+          <p class="lead mb-0">Hemel Hempstead
+            <br>
+            Herts, HP2 5AW</p>
+          </div>
+          <div class="col-md-6 mb-6 mg-lg-0">
+            <h4 class="text-uppercase mb-4">Social Media</h4>
+            <ul class="list-inline mb-0">
+              <li class="list-inline-item">
+                <a class="btn btn-outline-light btn-social text-center rounded" target="_blank" href="https://www.facebook.com/kyralnboyle">
+                  <i class="fab fa-facebook"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn btn-outline-light btn-social text-center rounded" href="https://www.instagram.com/kyralnboyle/">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn btn-outline-light btn-social text-center rounded" href="https://twitter.com/Kyra_Boyle">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-12 mb-12 mg-lg-0">
+            <h4 class="text-uppercase mb-4">Google Map</h4>
+            <div id="map"></div>
+            <script>
+            function initMap() {
+              var uluru = {lat: 51.7532 , lng:  -0.4486};
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 9,
+                center: uluru
+              });
+              var marker = new google.maps.Marker({
+                position: uluru,
+                map: map
+              });
+            }
+
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJAXVUp8P1Au_kX19qQ3tE7UOzRO59OtE&callback=initMap"
+            async defer></script>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div class=" small text-center pt-1 pb-1">
+      <small>Copyright &copy; <span id="autoDate"></span></small>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+    <script scr="js/google-map.js"></script>
+
+  </body>
+
+  </html>
