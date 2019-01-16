@@ -367,6 +367,6 @@ footer{
 }
 
 .tree{
-  position: absolute;
+  position: inherit;
   align-items: center;
 }
