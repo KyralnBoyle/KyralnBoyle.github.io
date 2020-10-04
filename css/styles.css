@@ -2,11 +2,12 @@ body{
   font-family: 'Oxygen', sans-serif;
   line-height: 1.8;
   justify-content: center;
-  background-color: #12111f;
+  background-color: #fff;
+  text-align: center;
 }
 
 .animatedHeader{
-  background-image: url('../assets/img/space1.jpg');
+  background-image: url('../assets/img/block.jpg');
   background-position: center;
   background-size: cover;
   width: 100%;
@@ -24,7 +25,6 @@ body{
   display: none;
 }
 
-
 #canvasContainer{
   padding: 20px;
   margin: 0 auto;
@@ -34,7 +34,7 @@ body{
 
 .navbar {
   margin-bottom: 0;
-  background-color: #610559;
+  background-color: #f57a7a;
   z-index: 9999;
   border: 0;
   font-size: 15px;
@@ -48,7 +48,7 @@ body{
 }
 
 .card{
-  background-color: #12111f;
+  background-color: #ffe95c;
 }
 
 .navbar li a, .navbar .navbar-toggler {
@@ -56,8 +56,17 @@ body{
   line-height: 3;
 }
 
+a {
+  color: #f57a7a;
+  font-size: 30px;
+}
+
+a:hover {
+  color: #fbcaef;
+}
+
 p {
-  color: #fff;
+  color: #000;
   font-size: 15px;
   text-align: center;
 }
@@ -65,7 +74,7 @@ p {
 h1, h2, h3, h4, h5, h6{
   font-family: 'Poppins', cursive;
   text-align: center;
-  color: #fff;
+  color: #000;
   padding-top: 20px;
   padding-bottom: 20px;
 }
@@ -75,18 +84,10 @@ h1, h2, h3, h4, h5, h6{
 }
 
 .aboutUsSection{
-  background-color: #610559;
-  color: #fff;
+  background-color: #ffe95c;
+  color: #000000;
   font-family: 'Poppins', cursive;
   font-size: 20px;
-}
-
-
-.imgk{
-  width: 40%;
-  position: absolute;
-  left: 30%;
-  top: 140px;
 }
 
 .imgd{
@@ -96,52 +97,79 @@ h1, h2, h3, h4, h5, h6{
   top: 100px;
 }
 
-.imgt{
-  width: 25%;
-  position: absolute;
-  left: 10%;
-  top: 100px;
-}
-
-.imgs{
-  width: 20%;
-  position: absolute;
-  left: 8%;
-  top: 450px;
-}
-
-.imgu{
-  width: 20%;
-  position: absolute;
-  left: 20%;
-  top: 500px;
-}
-
 .btn{
   /* margin: 40px; */
 }
 
 .btn-primary{
-  background-color: #610559;
+  background-color: #fbcaef;
   text-decoration-color: black;
-  color: #fff;
-  border-color: #610559;
-  margin-top: 16px;
+  color: #000;
+  border-color: #f57a7a;
+}
+
+.btn-group-lg>.btn,
+.btn-lg {
+  border-radius: 10rem;
+  padding: 0.5rem;
 }
 
 .btn-primary:hover{
-  background-color: #610559;
-  border-color: #fff;
+  background-color: #d5fff3;
+  border-color: #f57a7a;
+  color: #000;
 }
 
 .btn-outline-info:not(:disabled):not(.disabled):active{
-  background-color: #610559;
-  border-color: #bc84ca;
+  background-color: #fbcaef;
+  border-color: #f57a7a;
 }
 
 .btn-outline-info:focus{
   outline: none;
   box-shadow: none;
+  background-color: #fbcaef;
+}
+
+.btn-outline-light{
+  background-color: #fbcaef;
+}
+
+.duckParallax {
+  /* The image used */
+  background-image: url('../assets/img/Duck2.jpg');
+}
+
+.catParallax {
+  /* The image used */
+  background-image: url('../assets/img/Cat.jpg');
+}
+
+.posterParallax {
+  /* The image used */
+  background-image: url('../assets/img/Neat Poster.jpg');
+}
+
+.logoParallax {
+  /* The image used */
+  background-image: url('../assets/img/Newton occasions.PNG');
+}
+
+.duckParallax, .catParallax, .posterParallax, .logoParallax {
+  /* Set a specific height */
+  height: 500px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:  contain;
+}
+
+.carousel-control-next, .carousel-control-prev {
+ color: #f57a7a;
+ background: #f57a7a;
+ -webkit-tap-highlight-color: #f57a7a;
 }
 
 #map {
@@ -152,48 +180,21 @@ h1, h2, h3, h4, h5, h6{
 }
 
 footer{
-  background-color: #610559;
-  color: #fff;
+  background-color: #d5fff3;
+  color: #000;
 }
 
 @media (max-width: 1200px){
 
-  .imgk{
-    width: 40%;
-    position: absolute;
-    left: 30%;
-    top: 140px;
-  }
-
   .imgd{
     width: 40%;
     position: absolute;
-    left: 60%;
-    top: 120px;
+    left: 30%;
+    top: 150px;
   }
 
-  .imgt{
-    width: 25%;
-    position: absolute;
-    left: 10%;
-    top: 100px;
-  }
-
-  .imgs{
-    width: 20%;
-    position: absolute;
-    left: 8%;
-    top: 450px;
-  }
-
-  .imgu{
-    width: 20%;
-    position: absolute;
-    left: 20%;
-    top: 500px;
-  }
   .animatedHeader{
-    background-image: url('../assets/img/space1.jpg');
+    background-image: url('../assets/img/block.jpg');
     background-position: center;
     background-size: cover;
     width: 100%;
@@ -205,42 +206,15 @@ footer{
 
 @media (max-width: 992px){
 
-  .imgk{
-    width: 40%;
-    position: absolute;
-    left: 30%;
-    top: 140px;
-  }
-
   .imgd{
     width: 40%;
     position: absolute;
-    left: 60%;
-    top: 100px;
+    left: 30%;
+    top: 150px;
   }
 
-  .imgt{
-    width: 25%;
-    position: absolute;
-    left: 10%;
-    top: 100px;
-  }
-
-  .imgs{
-    width: 20%;
-    position: absolute;
-    left: 8%;
-    top: 300px;
-  }
-
-  .imgu{
-    width: 20%;
-    position: absolute;
-    left: 20%;
-    top: 400px;
-  }
   .animatedHeader{
-    background-image: url('../assets/img/space1.jpg');
+    background-image: url('../assets/img/block.jpg');
     background-position: center;
     background-size: cover;
     width: 100%;
@@ -251,42 +225,16 @@ footer{
 }
 
 @media (max-width: 768px){
-  .imgk{
-    width: 40%;
-    position: absolute;
-    left: 30%;
-    top: 140px;
-  }
 
   .imgd{
     width: 40%;
     position: absolute;
-    left: 60%;
-    top: 100px;
+    left: 30%;
+    top: 150px;
   }
 
-  .imgt{
-    width: 25%;
-    position: absolute;
-    left: 10%;
-    top: 100px;
-  }
-
-  .imgs{
-    width: 20%;
-    position: absolute;
-    left: 8%;
-    top: 300px;
-  }
-
-  .imgu{
-    width: 20%;
-    position: absolute;
-    left: 20%;
-    top: 400px;
-  }
   .animatedHeader{
-    background-image: url('../assets/img/space1.jpg');
+    background-image: url('../assets/img/block.jpg');
     background-position: center;
     background-size: cover;
     width: 100%;
@@ -297,42 +245,16 @@ footer{
 }
 
 @media (max-width: 572px){
-  .imgk{
-    width: 40%;
-    position: absolute;
-    left: 30%;
-    top: 140px;
-  }
 
   .imgd{
     width: 40%;
     position: absolute;
-    left: 60%;
-    top: 100px;
+    left: 30%;
+    top: 150px;
   }
 
-  .imgt{
-    width: 25%;
-    position: absolute;
-    left: 10%;
-    top: 100px;
-  }
-
-  .imgs{
-    width: 20%;
-    position: absolute;
-    left: 8%;
-    top: 200px;
-  }
-
-  .imgu{
-    width: 20%;
-    position: absolute;
-    left: 20%;
-    top: 300px;
-  }
   .animatedHeader{
-    background-image: url('../assets/img/space1.jpg');
+    background-image: url('../assets/img/block.jpg');
     background-position: center;
     background-size: cover;
     width: 100%;
@@ -363,7 +285,7 @@ footer{
 }
 
 .small{
-  color: #fff;
+  color: #000;
 }
 
 .tree{
