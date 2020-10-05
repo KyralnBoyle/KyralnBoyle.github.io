@@ -41,6 +41,7 @@ body{
   line-height: 3;
   letter-spacing: 3px;
   border-radius: 0;
+  padding: 0;
 }
 
 .container{
@@ -291,11 +292,6 @@ footer{
    }
 }
 
-@media (min-width: 2000px){
-.navbar-expand-sm, .navbar-toggler {
-    display: contents;
-}
-}
 
 .small{
   color: #000;
