@@ -202,6 +202,26 @@ footer{
     overflow: hidden;
     position: relative;
   }
+
+  .duckParallax {
+    /* The image used */
+    background-image: url('../assets/img/Duck2.jpg');
+  }
+
+  .catParallax {
+    /* The image used */
+    background-image: url('../assets/img/Cat.jpg');
+  }
+
+  .posterParallax {
+    /* The image used */
+    background-image: url('../assets/img/Neat Poster.jpg');
+  }
+
+  .logoParallax {
+    /* The image used */
+    background-image: url('../assets/img/Newton occasions.PNG');
+  }
 }
 
 @media (max-width: 992px){
@@ -221,6 +241,26 @@ footer{
     height: 700px;
     overflow: hidden;
     position: relative;
+  }
+
+  .duckParallax {
+    /* The image used */
+    background-image: url('../assets/img/Duck2.jpg');
+  }
+
+  .catParallax {
+    /* The image used */
+    background-image: url('../assets/img/Cat.jpg');
+  }
+
+  .posterParallax {
+    /* The image used */
+    background-image: url('../assets/img/Neat Poster.jpg');
+  }
+
+  .logoParallax {
+    /* The image used */
+    background-image: url('../assets/img/Newton occasions.PNG');
   }
 }
 
@@ -242,6 +282,25 @@ footer{
     overflow: hidden;
     position: relative;
   }
+  .duckParallax {
+    /* The image used */
+    background-image: url('../assets/img/Duck2.jpg');
+  }
+
+  .catParallax {
+    /* The image used */
+    background-image: url('../assets/img/Cat.jpg');
+  }
+
+  .posterParallax {
+    /* The image used */
+    background-image: url('../assets/img/Neat Poster.jpg');
+  }
+
+  .logoParallax {
+    /* The image used */
+    background-image: url('../assets/img/Newton occasions.PNG');
+  }
 }
 
 @media (max-width: 572px){
@@ -262,6 +321,25 @@ footer{
     overflow: hidden;
     position: relative;
   }
+  .duckParallax {
+    /* The image used */
+    background-image: url('../assets/img/Duck2.jpg');
+  }
+
+  .catParallax {
+    /* The image used */
+    background-image: url('../assets/img/Cat.jpg');
+  }
+
+  .posterParallax {
+    /* The image used */
+    background-image: url('../assets/img/Neat Poster.jpg');
+  }
+
+  .logoParallax {
+    /* The image used */
+    background-image: url('../assets/img/Newton occasions.PNG');
+  }
 }
 
 
@@ -281,6 +359,25 @@ footer{
     margin: 0 auto;
     justify-content: center;
     text-align: center;
+  }
+  .duckParallax {
+    /* The image used */
+    background-image: url('../assets/img/Duck2.jpg');
+  }
+
+  .catParallax {
+    /* The image used */
+    background-image: url('../assets/img/Cat.jpg');
+  }
+
+  .posterParallax {
+    /* The image used */
+    background-image: url('../assets/img/Neat Poster.jpg');
+  }
+
+  .logoParallax {
+    /* The image used */
+    background-image: url('../assets/img/Newton occasions.PNG');
   }
 }
 
