@@ -291,6 +291,12 @@ footer{
    }
 }
 
+@media (min-width: 2000px){
+.navbar-expand-sm, .navbar-toggler {
+    display: contents;
+}
+}
+
 .small{
   color: #000;
 }
